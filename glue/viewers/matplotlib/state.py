@@ -164,10 +164,19 @@ class MatplotlibDataViewerState(ViewerState):
                 y_max = y_mid + y_width / 2.
 
             with delay_callback(self, 'x_min', 'x_max', 'y_min', 'y_max'):
-                self.x_min = x_min
-                self.x_max = x_max
-                self.y_min = y_min
-                self.y_max = y_max
+                if self.y_min>self.y_max:
+                    self.y_min = y_max
+                    self.y_max = y_min
+                else:
+                    self.y_min = y_min
+                    self.y_max = y_max
+                    
+                if self.x_min>self.x_max:
+                    self.x_min = x_max
+                    self.x_max = x_min
+                else:
+                    self.x_min = x_min
+                    self.x_max = x_max
 
     def update_axes_settings_from(self, state):
         self.x_axislabel_size = state.x_axislabel_size
